@@ -38,9 +38,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+{{--                <a class="navbar-brand" href="{{ url('/') }}">--}}
+{{--                    {{ config('app.name', 'Laravel') }}--}}
+{{--                </a>--}}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -87,7 +87,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="container">
             @yield('content')
         </main>
     </div>
@@ -99,7 +99,7 @@
     <script src="{{env('PUBLIC_PATH')}}/js/sweetalert.min.js"></script>
     <script src="{{env('PUBLIC_PATH')}}/js/popper.min.js"></script>
     <script src="{{env('PUBLIC_PATH')}}/js/bootstrap.min.js"></script>
-    
+
     <script src="{{env('PUBLIC_PATH')}}/js/select2.full.min.js"></script>
     <link rel="stylesheet" href="{{env('PUBLIC_PATH')}}/css/fontawsome.min.css">
 @if(env('APP_URL')=="http://127.0.0.1:8000")

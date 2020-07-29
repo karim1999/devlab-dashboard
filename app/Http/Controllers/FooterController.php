@@ -13,7 +13,11 @@ class FooterController extends Controller
      */
     public function index()
     {
-        return view('sites.index');
+        $setting = \App\Setting::firstOrCreate(
+            ['id' => 1],
+            ['terms' => "", 'privacy' => ""]
+        );
+        return view('footer.settings', $setting);
     }
 
 
@@ -21,6 +25,15 @@ class FooterController extends Controller
         $footer=\App\Footer::where('site_id',$request->site_id)->get()->first();
         $site_id=$request->site_id;
         return view('footer.site-footer',compact('footer','site_id'));
+    }
+    public function update_settings(Request $request){
+        $terms= $request->post('terms');
+        $privacy= $request->post('privacy');
+        $setting = \App\Setting::updateOrCreate(
+            ['id' => 1],
+            ['terms' => $terms, 'privacy' => $privacy]
+        );
+        return redirect()->back()->with('data',['alert'=>'تم التحديث بنجاح','alert-type'=>'success']);
     }
 
     /**
@@ -65,8 +78,8 @@ class FooterController extends Controller
      */
     public function update(Request $request, $id)
     {
-         
- 
+
+
          $request->validate([
             'site_id'=>'integer|required|min:1',
             'footer_ar'=>'string|nullable|min:1|max:5000',
@@ -80,7 +93,7 @@ class FooterController extends Controller
             'footer_en'=>$request->footer_en,
             'footer_en_enabled'=>($request->footer_en_enabled=='true')?1:0
          ]);
-        
+
         return redirect()->back()->with('data',['alert'=>'تم التحديث بنجاح','alert-type'=>'success']);
 
     }

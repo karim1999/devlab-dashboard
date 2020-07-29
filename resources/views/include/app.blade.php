@@ -22,7 +22,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <!-- Styles -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
+
+        <!-- Styles -->
     {{--
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
@@ -127,6 +129,9 @@
         right: 200px;
         position: fixed!important;
         z-index: 112;
+        top: 0;
+        bottom: 0;
+        overflow-y: auto;
     }
 
     @media (min-width: 768px) {

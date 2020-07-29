@@ -18,6 +18,8 @@
 Auth::routes(['register'=>false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/terms', 'SettingsController@terms')->name('terms');
+Route::get('/policy', 'SettingsController@policy')->name('policy');
 
 /*Route::get('/settings', function(){
 	return view('settings.index');
@@ -84,6 +86,7 @@ Route::get('site-profile/{site_id}','SiteProfileController@index_site')->name('s
 
 Route::resource('footer','FooterController',['only' => ['index', 'update', 'store','edit','destroy']]);
 Route::get('footer/{site_id}','FooterController@index_site')->name('footer.site');
+Route::post('update_footer','FooterController@update_settings')->name('footer.settings');
 
 
 
