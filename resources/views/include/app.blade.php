@@ -361,7 +361,7 @@
 
                 </div>
                 <div class="col-12 px-0  pb-2 pb-md-2" style="color: #fff" disabled>
-                    <a href="#" class="col-12 row px-0">
+                    <a href="https://status.devlab.ae" class="col-12 row px-0">
                     <div class="col-3" style="padding: 9px 20px">
                         <img src="{{env('PUBLIC_PATH')}}/site_icons/path7498.svg">
                     </div>
