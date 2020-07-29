@@ -1,0 +1,6 @@
+Sitemap: https://nafezly.com/sitemap.xml
+User-agent: *
+Disallow: /register*
+Disallow: /login*
+Disallow: /search*
+Disallow: /password/reset*
