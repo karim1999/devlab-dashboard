@@ -12,13 +12,13 @@ class SettingsController extends Controller
             ['id' => 1],
             ['terms' => "", 'privacy' => ""]
         );
-        return view('common', ["data"=> $setting->terms]);
+        return view('common', ["data"=> $setting->terms, "title" => "الشروط والاحكام"]);
     }
     public function policy(){
         $setting = \App\Setting::firstOrCreate(
             ['id' => 1],
             ['terms' => "", 'privacy' => ""]
         );
-        return view('common', ["data"=> $setting->policy]);
+        return view('common', ["data"=> $setting->privacy, "title" => "سياسة الخصوصية"]);
     }
 }
