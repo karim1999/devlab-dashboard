@@ -15,7 +15,7 @@ class FooterController extends Controller
     {
         $setting = \App\Setting::firstOrCreate(
             ['id' => 1],
-            ['terms' => "", 'privacy' => ""]
+            ['terms' => "", 'privacy' => "", 'terms_en' => "", 'privacy_en' => ""]
         );
         return view('footer.settings', $setting);
     }
@@ -29,9 +29,11 @@ class FooterController extends Controller
     public function update_settings(Request $request){
         $terms= $request->post('terms');
         $privacy= $request->post('privacy');
+        $terms_en= $request->post('terms_en');
+        $privacy_en= $request->post('privacy_en');
         $setting = \App\Setting::updateOrCreate(
             ['id' => 1],
-            ['terms' => $terms, 'privacy' => $privacy]
+            ['terms' => $terms, 'privacy' => $privacy, 'terms_en' => $terms_en, 'privacy_en' => $privacy_en]
         );
         return redirect()->back()->with('data',['alert'=>'تم التحديث بنجاح','alert-type'=>'success']);
     }

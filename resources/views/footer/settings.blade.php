@@ -31,12 +31,35 @@
                 <div class="col-12 py-3 mt-3" style="">
                     <div class="col-12 row">
                         <div class="col-6">
+                            الشروط والاحكام بالانجليزية
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 py-3" style="background: #fff;border-radius: 7px!important;box-shadow: 0px 0px 13px #e6e6e6;">
+                        <textarea class="editor_en" placeholder="Terms and conditions" style="border:none;text-align: left;min-height: 150px;direction: ltr" name="terms_en">{{$terms_en}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 py-3">
+                <div class="col-12 py-3 mt-3" style="">
+                    <div class="col-12 row">
+                        <div class="col-6">
                             سياسة الخصوصية
                         </div>
                     </div>
                     <div class="col-12 mt-2 py-3" style="background: #fff;border-radius: 7px!important;box-shadow: 0px 0px 13px #e6e6e6;">
 
                         <textarea class="editor2" placeholder="سياسة الخصوصية" style="border:none;text-align: left;min-height: 150px;direction: ltr" name="privacy">{{$privacy}}</textarea>
+                    </div>
+                </div>
+                <div class="col-12 py-3 mt-3" style="">
+                    <div class="col-12 row">
+                        <div class="col-6">
+                            سياسة الخصوصية بالانجليزية
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 py-3" style="background: #fff;border-radius: 7px!important;box-shadow: 0px 0px 13px #e6e6e6;">
+
+                        <textarea class="editor2_en" placeholder="policy" style="border:none;text-align: left;min-height: 150px;direction: ltr" name="privacy_en">{{$privacy_en}}</textarea>
                     </div>
                 </div>
 
@@ -65,6 +88,26 @@
             } );
         ClassicEditor
             .create( document.querySelector( '.editor2' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'alignment' ],
+            }  )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        ClassicEditor
+            .create( document.querySelector( '.editor_en' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'alignment' ],
+            }  )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        ClassicEditor
+            .create( document.querySelector( '.editor2_en' ), {
                 toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'alignment' ],
             }  )
             .then( editor => {

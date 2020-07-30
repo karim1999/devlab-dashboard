@@ -10,6 +10,8 @@ class Setting extends Model
     protected $fillable= [
         "id",
         "terms",
-        "privacy"
+        "privacy",
+        "terms_en",
+        "privacy_en"
     ];
 }
