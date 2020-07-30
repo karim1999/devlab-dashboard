@@ -29,14 +29,14 @@ class StatisticController extends Controller
 
         $total_response=array();
         for($ii=0;$ii<count($sites);$ii++)
-        { 
+        {
             $site_id=$sites[$ii]->id;
             $site=\App\Site::where('id',$site_id)->get()->first();
-            
-            //return $site->link;
-            
 
-               
+            //return $site->link;
+
+
+
             //return $site->site_profile->first()->view_id;
             $site=\App\Site::where('id',$site_id)->get()->first();
             $seostats = new \SEOstats\SEOstats;
@@ -57,7 +57,7 @@ class StatisticController extends Controller
             $t_3month=$google_visitors['t_3month'];
             $t_6month=$google_visitors['t_6month'];
             $alert=$google_visitors['alert'];*/
-            
+
             // return $google_visitors;
 
             $alexa_traffic=SEOstats\Alexa::getTrafficGraph(1);
@@ -68,7 +68,7 @@ class StatisticController extends Controller
 
             if(session('moz_'.$site->id)!="true")
             {
-                $accessID = env('MOZ_ACCESS_ID'); 
+                $accessID = env('MOZ_ACCESS_ID');
                 $secretKey =  env('MOZ_SECRET_KEY');
                 $expires = time()+5;
                 $stringToSign = $accessID."\n".$expires;
@@ -85,7 +85,7 @@ class StatisticController extends Controller
                 $content = curl_exec($ch);
                 curl_close($ch);
                 $json_a = json_decode($content);
-                $pageAuthority = round($json_a->upa,0);  
+                $pageAuthority = round($json_a->upa,0);
                 $domainAuthority = round($json_a->pda,0);
                 $externalLinks = $json_a->ueid;
                 $moz_moz_rank=SEOstats\Mozscape::getMozRank();
@@ -96,14 +96,14 @@ class StatisticController extends Controller
                 session(['moz_domainAuthority'.$site->id=>$domainAuthority]);
                 session(['moz_externalLinks'.$site->id=>$externalLinks]);
                 session(['moz_moz_rank'.$site->id=>$moz_moz_rank]);
-                
+
             }
             else{
 
-                $pageAuthority = session('moz_pageAuthority'.$site->id);  
-                $domainAuthority = session('moz_domainAuthority'.$site->id);  
-                $externalLinks = session('moz_externalLinks'.$site->id);  
-                $moz_moz_rank = session('moz_moz_rank'.$site->id);  
+                $pageAuthority = session('moz_pageAuthority'.$site->id);
+                $domainAuthority = session('moz_domainAuthority'.$site->id);
+                $externalLinks = session('moz_externalLinks'.$site->id);
+                $moz_moz_rank = session('moz_moz_rank'.$site->id);
             }
 
 
@@ -116,18 +116,18 @@ class StatisticController extends Controller
                session(['alexa_rank_val_'.$site->id=>$alexaRank]);
             }
             else{
-                $alexaRank=  session('alexa_rank_val_'.$site->id); 
+                $alexaRank=  session('alexa_rank_val_'.$site->id);
              }
- 
+
              $tempo=array('site_id'=>$site_id,'site_statistics'=>
                array(
-                  
+
                     'alexa_traffic'=>$alexa_traffic,
                     'pageAuthority'=>$pageAuthority,
                     'domainAuthority'=>$domainAuthority,
                     'externalLinks'=>$externalLinks,
                     'alexaRank'=>$alexaRank,
-                   
+
 
                 )
             );
@@ -145,7 +145,7 @@ class StatisticController extends Controller
 
     public function index_site($site_id)
     {
- 
+
 
 
         $alert="";
@@ -164,25 +164,25 @@ class StatisticController extends Controller
             Config::set('analytics.service_account_credentials_json', json_decode($site->site_profile->first()->credentials_statistics,true) );
 
             $analyticsDataa = Analytics::fetchVisitorsAndPageViews(Period::days(1));
-           
+
             foreach($analyticsDataa as $analyticsData1){
                 $t_today+=$analyticsData1['visitors'];
             }
 
             $analyticsDatab = Analytics::fetchVisitorsAndPageViews(Period::months(1));
-            
+
             foreach($analyticsDatab as $analyticsData2){
                 $t_1month+=$analyticsData2['visitors'];
             }
 
             $analyticsDatac = Analytics::fetchVisitorsAndPageViews(Period::months(3));
-            
+
             foreach($analyticsDatac as $analyticsData3){
                 $t_3month+=$analyticsData3['visitors'];
             }
 
             $analyticsDatad = Analytics::fetchVisitorsAndPageViews(Period::months(6));
-            
+
             foreach($analyticsDatad as $analyticsData4){
                 $t_6month+=$analyticsData4['visitors'];
             }
@@ -208,7 +208,7 @@ class StatisticController extends Controller
 
         if(session('moz_'.$site->id)!="true")
         {
-            $accessID = env('MOZ_ACCESS_ID'); 
+            $accessID = env('MOZ_ACCESS_ID');
             $secretKey =  env('MOZ_SECRET_KEY');
             $expires = time()+5;
             $stringToSign = $accessID."\n".$expires;
@@ -225,10 +225,11 @@ class StatisticController extends Controller
             $content = curl_exec($ch);
             curl_close($ch);
             $json_a = json_decode($content);
-            $pageAuthority = round($json_a->upa,0);  
+            $pageAuthority = round($json_a->upa,0);
             $domainAuthority = round($json_a->pda,0);
             $externalLinks = $json_a->ueid;
-            $moz_moz_rank=SEOstats\Mozscape::getMozRank();
+            $moz_moz_rank=0;
+//            $moz_moz_rank=SEOstats\Mozscape::getMozRank();
 
 
             session(['moz_'.$site->id=>"true"]);
@@ -236,14 +237,14 @@ class StatisticController extends Controller
             session(['moz_domainAuthority'.$site->id=>$domainAuthority]);
             session(['moz_externalLinks'.$site->id=>$externalLinks]);
             session(['moz_moz_rank'.$site->id=>$moz_moz_rank]);
-            
+
         }
         else{
 
-            $pageAuthority = session('moz_pageAuthority'.$site->id);  
-            $domainAuthority = session('moz_domainAuthority'.$site->id);  
-            $externalLinks = session('moz_externalLinks'.$site->id);  
-            $moz_moz_rank = session('moz_moz_rank'.$site->id);  
+            $pageAuthority = session('moz_pageAuthority'.$site->id);
+            $domainAuthority = session('moz_domainAuthority'.$site->id);
+            $externalLinks = session('moz_externalLinks'.$site->id);
+            $moz_moz_rank = session('moz_moz_rank'.$site->id);
         }
 
 
@@ -252,7 +253,7 @@ class StatisticController extends Controller
 
 
         //alexa traffic
-        /*if(session('alexa_'.$site->id)!="true"){ 
+        /*if(session('alexa_'.$site->id)!="true"){
             session(['alexa_'.$site->id=>"true"]);
             $client = new \GuzzleHttp\Client();
             $res_alexa = $client->request('GET', 'https://awis.api.alexa.com/api?Action=urlInfo&ResponseGroup=Rank&Url='.$site->link, [
@@ -264,14 +265,14 @@ class StatisticController extends Controller
                     'x-amz-security-token'=>'<COGNITO_STS_SECURITY_TOKEN>'
                 ]
             ]);
-            
+
         }*/
-        
+
         //UrlInfo
 
-       
+
         //return  ;
-       
+
         /*$awiss= new  UrlInfo(env('AWIS_ACCESS_KEY_ID'), env('AWIS_SECRET_ACCESS_KEY'),$site->link);
         return $awiss->getUrlInfo();*/
         if(session('alexa_rank_'.$site->id)!="true")
@@ -282,7 +283,7 @@ class StatisticController extends Controller
            session(['alexa_rank_val_'.$site->id=>$alexaRank]);
         }
         else{
-            $alexaRank=  session('alexa_rank_val_'.$site->id); 
+            $alexaRank=  session('alexa_rank_val_'.$site->id);
          }
 
         //return env('AWIS_SECRET_ACCESS_KEY');
@@ -371,13 +372,13 @@ class StatisticController extends Controller
     public static function get_google_visites($site_id){
         //return $site_id;
             $alert="";
-            
+
             $t_today=0;
             $t_1month=0;
             $t_3month=0;
             $t_6month=0;
 
-            $site_profile=\App\Site_profile::where('site_id',$site_id)->get()->first(); 
+            $site_profile=\App\Site_profile::where('site_id',$site_id)->get()->first();
            /*
             \Artisan::call('cache:clear');*/
             Config::set('analytics.view_id', $site_profile['view_id'] );
@@ -385,37 +386,37 @@ class StatisticController extends Controller
 
 
             try{
-                
+
 
                 ${'analyticsDataa'.$site_id.'a'} = Analytics::fetchVisitorsAndPageViews(Period::days(1));
-               
+
                 foreach(${'analyticsDataa'.$site_id.'a'} as ${'analyticsData'.$site_id.'1'}){
                     $t_today+=${'analyticsData'.$site_id.'1'}['visitors'];
                 }
                 //return $t_today;
 
                 ${'analyticsDataa'.$site_id.'b'} = Analytics::fetchVisitorsAndPageViews(Period::months(1));
-                
+
                 foreach(${'analyticsDataa'.$site_id.'b'} as ${'analyticsData'.$site_id.'2'} ){
                     $t_1month+=${'analyticsData'.$site_id.'2'}['visitors'];
                 }
 
                 ${'analyticsDataa'.$site_id.'c'} = Analytics::fetchVisitorsAndPageViews(Period::months(3));
-                
+
                 foreach(${'analyticsDataa'.$site_id.'c'} as ${'analyticsData'.$site_id.'3'}){
                     $t_3month+=${'analyticsData'.$site_id.'3'}['visitors'];
                 }
 
                 ${'analyticsDataa'.$site_id.'d'} = Analytics::fetchVisitorsAndPageViews(Period::months(6));
-                
+
                 foreach(${'analyticsDataa'.$site_id.'d'} as ${'analyticsData'.$site_id.'4'}){
                     $t_6month+=${'analyticsData'.$site_id.'4'}['visitors'];
                 }
 
             }catch(\Exception $e){
 
-            
-           
+
+
 
 
                 $alert="
@@ -436,7 +437,7 @@ class StatisticController extends Controller
              \Artisan::call('config:clear');
             return $array;
     }
- 
+
      public function AlexaRank($domain, $country, $mode) {
         $url = "https://www.alexa.com/minisiteinfo/".$domain;
         $string = file_get_contents($url);
@@ -462,7 +463,7 @@ class StatisticController extends Controller
         }
         return $RankDataArr;
     }
-   
+
 
 
 
