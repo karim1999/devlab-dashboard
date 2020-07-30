@@ -20,6 +20,8 @@ Auth::routes(['register'=>false]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/terms', 'SettingsController@terms')->name('terms');
 Route::get('/policy', 'SettingsController@policy')->name('policy');
+Route::get('/terms_en', 'SettingsController@terms_en')->name('terms_en');
+Route::get('/policy_en', 'SettingsController@policy_en')->name('policy_en');
 
 /*Route::get('/settings', function(){
 	return view('settings.index');

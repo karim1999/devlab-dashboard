@@ -87,7 +87,14 @@
             </div>
         </div>
     </nav>
-
+    @if(isset($english) && $english)
+        <style>
+            *{
+                text-align: left !important;
+                direction: ltr !important;
+            }
+        </style>
+        @endif
     <main class="container">
         <div>{!! $data !!}</div>
     </main>
