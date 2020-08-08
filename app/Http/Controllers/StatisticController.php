@@ -88,7 +88,8 @@ class StatisticController extends Controller
                 $pageAuthority = round($json_a->upa,0);
                 $domainAuthority = round($json_a->pda,0);
                 $externalLinks = $json_a->ueid;
-                $moz_moz_rank=SEOstats\Mozscape::getMozRank();
+//                $moz_moz_rank=SEOstats\Mozscape::getMozRank();
+                $moz_moz_rank=0;
 
 
                 session(['moz_'.$site->id=>"true"]);
