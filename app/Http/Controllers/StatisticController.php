@@ -85,7 +85,7 @@ class StatisticController extends Controller
                 $content = curl_exec($ch);
                 curl_close($ch);
                 $json_a = json_decode($content);
-                $pageAuthority = round($json_a->upa,0);
+                $pageAuthority = 0;
                 $domainAuthority = round($json_a->pda,0);
                 $externalLinks = $json_a->ueid;
 //                $moz_moz_rank=SEOstats\Mozscape::getMozRank();
